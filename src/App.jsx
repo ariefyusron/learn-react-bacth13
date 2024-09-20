@@ -1,56 +1,24 @@
-import { useState } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import Button from './components/Button'
+import TodoList from './pages/todolist'
 
-import './App.css';
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <div>Hello world!</div>
+  },
+  {
+    path: '/home',
+    element: <div>Hello Home!</div>
+  },
+  {
+    path: '/todolist',
+    element: <TodoList />
+  }
+]);
 
-const App = () => {
-  const [list, setList] = useState([])
-  const [input, setInput] = useState('')
-
-  return (
-    <div>
-      <input
-      value={input}
-      onChange={res => {
-        setInput(res.target.value)
-      }} />
-      <button onClick={() => {
-        setList([...list, input])
-        setInput('')
-      }}>Tambah</button>
-
-      <Button
-        onClick={() => {
-          setList([])
-        }}
-      >
-        Hapus Semua
-      </Button>
-
-      <div className='wrap-content'>
-        {list.length === 0 ? <p>Kosong</p> : (
-          <ul>
-            {list.map((item, index) => {
-              return (
-                <li key={index} style={{ marginBottom: '12px' }}>
-                  {item}
-                  <Button
-                    style={{ marginLeft: '12px'}}
-                    onClick={() => {
-                      setList(list.filter((e, i) => i !== index ))
-                    }}
-                  >
-                    hapus
-                  </Button>
-                </li>
-              )
-            })}
-          </ul>
-        )}
-      </div>
-    </div>
-  )
-};
+const App = () => (
+  <RouterProvider router={router} />
+);
 
 export default App;
