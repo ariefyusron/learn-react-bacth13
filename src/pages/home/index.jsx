@@ -1,7 +1,11 @@
 import { useNavigate, Link } from 'react-router-dom'
 
+import TextCount from '../../components/TextCount';
+import useHomeStore from '../../stores/storeHome'
+
 const Index = () => {
   const navigate = useNavigate()
+  const { count, setCount } = useHomeStore((state) => state)
 
   return (
     <div>
@@ -17,6 +21,11 @@ const Index = () => {
       }}>
         go to Detail
       </button>
+
+      <button onClick={() => {
+        setCount(count + 1)
+      }}>count</button>
+      <TextCount />
     </div>
   )
 };

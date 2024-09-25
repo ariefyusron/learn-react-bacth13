@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom'
+import useHomeStore from '../../stores/storeHome'
 
 const Index = () => {
   const navigate = useNavigate()
+  const count = useHomeStore(state => state.count)
 
   return (
     <div>
@@ -9,6 +11,7 @@ const Index = () => {
       <button onClick={() => {
         navigate(-1)
       }}>back</button>
+      <p>count: {count}</p>
     </div>
   )
 }
