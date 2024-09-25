@@ -1,8 +1,8 @@
-const Topbar = () => {
+const Topbar = ({ title }) => {
 
   return (
     <div>
-      <h1>My App</h1>
+      <h1>{title}</h1>
     </div>
   )
 };
