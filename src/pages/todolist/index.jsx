@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import Button from '../../components/Button'
 import './styles.css'
@@ -6,9 +7,13 @@ import './styles.css'
 const App = () => {
   const [list, setList] = useState([])
   const [input, setInput] = useState('')
+  const navigate = useNavigate()
 
   return (
     <div>
+      <button onClick={() => {
+        navigate(-1)
+      }}>back</button>
       <input
       value={input}
       onChange={res => {
