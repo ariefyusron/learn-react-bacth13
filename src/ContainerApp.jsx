@@ -36,7 +36,7 @@ const ContainerApp = () => {
 
   return (
     <Layout>
-      <Sider>
+      <Sider style={{ backgroundColor: 'white' }}>
         <Menu
           defaultSelectedKeys={[location.pathname]}
           defaultOpenKeys={[getOpenFirst()]}
@@ -47,7 +47,7 @@ const ContainerApp = () => {
           items={items}
         />
       </Sider>
-      <Content>
+      <Content style={{ padding: '16px' }}>
         <Outlet />
       </Content>
     </Layout>
