@@ -1,29 +1,34 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import TodoList from './pages/todolist'
-import Home from './pages/home'
-import Detail from './pages/detail'
+import ProductPage from './pages/product'
+import CartPage from './pages/cart'
+import ProductCashierPage from './pages/product-cashier'
 
-import ContainerHome from './ContainerHome'
+import ContainerApp from './ContainerApp';
 
 const router = createBrowserRouter([
   {
-    path: '/home',
-    element: <ContainerHome />,
+    path: '',
+    element: <ContainerApp />,
     children: [
       {
         path: '',
-        element: <Home />,
+        element: <ProductPage />
       },
       {
-        path: 'detail',
-        element: <Detail />,
+        path: 'cashier',
+        children: [
+          {
+            path: '',
+            element: <ProductCashierPage />
+          },
+          {
+            path: 'cart',
+            element: <CartPage />
+          }
+        ]
       }
     ]
-  },
-  {
-    path: '/todolist',
-    element: <TodoList />
   }
 ]);
 
