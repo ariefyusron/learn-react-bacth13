@@ -7,6 +7,8 @@ import Form from './components/form'
 const Index = () => {
   const listProducts = useProductStore(state => state.listProducts)
   const [isOpen, setIsOpen] = useState(false)
+  const [typeForm, setTypeForm] = useState('')
+  const [idProduct, setIdProduct] = useState('')
 
   const columns = [
     {
@@ -18,6 +20,21 @@ const Index = () => {
       title: 'Harga',
       dataIndex: 'price',
       key: 'price'
+    },
+    {
+      title: 'action',
+      dataIndex: 'id',
+      render: (res) => (
+        <Button
+          onClick={() => {
+            setTypeForm('edit')
+            setIdProduct(res)
+            setIsOpen(true)
+          }}
+        >
+          Edit
+        </Button>
+      )
     }
   ]
 
@@ -26,12 +43,21 @@ const Index = () => {
       <Button
         style={{ marginBottom: '12px' }}
         type='primary'
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setTypeForm('add')
+          setIsOpen(true)
+        }}
       >Tambah</Button>
       <Table columns={columns} dataSource={listProducts} />
       <Form
         open={isOpen}
-        onCancel={() => setIsOpen(false)}
+        typeForm={typeForm}
+        idProduct={idProduct}
+        onCancel={() => {
+          setIsOpen(false)
+          setTypeForm('')
+          setIdProduct('')
+        }}
       />
     </>
   )

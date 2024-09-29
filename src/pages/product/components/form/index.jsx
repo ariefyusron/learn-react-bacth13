@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Modal, Input } from 'antd'
 import { v4 } from 'uuid'
 
@@ -9,9 +9,20 @@ const initForm = {
   price: ''
 }
 
-const Index = (props) =>{
+const Index = ({ typeForm, idProduct, ...props}) =>{
+  const isAdd = typeForm === 'add'
   const [form, setForm] = useState(initForm)
-  const setListProduct = useProductStore(state => state.setListProduct)
+  const { setAddListProduct, listProducts, setUpdateListProduct } = useProductStore(state => state)
+
+  useEffect(() => {
+    if(props.open && !isAdd) {
+      const getIndex = listProducts.findIndex(e => e.id === idProduct)
+      setForm({
+        name: listProducts[getIndex].name,
+        price: listProducts[getIndex].price
+      })
+    }
+  },[props.open])
 
   const setFormBody = (key, value) => {
     setForm({
@@ -22,13 +33,24 @@ const Index = (props) =>{
 
   return (
     <Modal
-      title="Tambah Produk"
+      title={`${isAdd ? 'Tambah' : 'Edit'} Produk`}
       {...props}
+      onCancel={() => {
+        setForm(initForm)
+        props.onCancel()
+      }}
       onOk={() => {
-        setListProduct({
+        if(isAdd) {
+          setAddListProduct({
             id: v4(),
             ...form
           })
+        } else {
+          setUpdateListProduct({
+            id: idProduct,
+            ...form
+          })
+        }
         setForm(initForm)
         props.onCancel()
       }}>
