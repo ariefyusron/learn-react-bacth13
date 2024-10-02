@@ -1,6 +1,8 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
 
+import SuspenseFallback from './components/suspense-fallback'
+
 const { Sider, Content } = Layout
 
 const ContainerApp = () => {
@@ -48,7 +50,9 @@ const ContainerApp = () => {
         />
       </Sider>
       <Content style={{ padding: '16px' }}>
-        <Outlet />
+        <SuspenseFallback>
+          <Outlet />
+        </SuspenseFallback>
       </Content>
     </Layout>
   )

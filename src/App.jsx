@@ -1,10 +1,13 @@
+import { lazy } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import ProductPage from './pages/product'
-import CartPage from './pages/cart'
-import ProductCashierPage from './pages/product-cashier'
+import SuspenseFallback from './components/suspense-fallback'
 
-import ContainerApp from './ContainerApp';
+const ProductPage = lazy(() => import('./pages/product'))
+const CartPage = lazy(() => import('./pages/cart'))
+const ProductCashierPage = lazy(() => import('./pages/product-cashier'))
+
+const ContainerApp = lazy(() => import('./ContainerApp'))
 
 const router = createBrowserRouter([
   {
@@ -33,7 +36,9 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => (
-  <RouterProvider router={router} />
+  <SuspenseFallback>
+    <RouterProvider router={router} />
+  </SuspenseFallback>
 );
 
 export default App;
