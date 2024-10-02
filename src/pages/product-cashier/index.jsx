@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 
 import Header from '../../components/header'
 
@@ -13,13 +13,17 @@ const Index = () => {
     umur: data.umur
   }),[data.umur, data.name])
 
+  const handleCount = useCallback(() => {
+    setCount(count + 1)
+  },[count])
+
   return (
     <div>
       <Header data={newData} />
-      <div>Product Cashier: {data.umur}</div>
+      <div>Product Cashier: {count}</div>
       <button onClick={() => setData({ ...data, umur: 15 })}>ganti umur</button>
       <button onClick={() => setData({ ...data, name: "Saya budi" })}>ganti name</button>
-      <button onClick={() => setCount(count + 1)}>count</button>
+      <button onClick={handleCount}>count</button>
       {console.log('render product cashier')}
     </div>
   )
